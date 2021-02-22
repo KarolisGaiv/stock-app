@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+}
+
+.dashboard-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+
+    &__title {
+        color: #6a929e;
+    }
+
+    &__form {
+        display: flex;
+    }
+}
+
+.search-results-wrapper {
+    margin-top: 10px;
+}
