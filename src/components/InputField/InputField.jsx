@@ -1,12 +1,12 @@
 import React from 'react';
 import "./inputField.scss"
 
-function InputField({ inputValue, onChange, placeholder }) {
+function InputField({ value, onChange, placeholder }) {
   return (
     <input
       placeholder={placeholder}
       type='text'
-      value={inputValue}
+      value={value}
       onChange={onChange}
       className="inputField"
     ></input>

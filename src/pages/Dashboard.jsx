@@ -9,7 +9,7 @@ function Dashboard() {
   const [input, setInput] = useState('');
   const [result, setResult] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     const url = `${iex.base_url}/stock/${input}/quote?token=${iex.api_token}`;
     e.preventDefault();
 
@@ -17,11 +17,9 @@ function Dashboard() {
       alert('Please enter stock ticker');
     }
 
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setResult(data));
-
-    console.log(result);
+    const res = await fetch(url);
+    const data = await res.json();
+    setResult(data);
     setInput('');
   };
 
@@ -31,7 +29,7 @@ function Dashboard() {
       <form className='dashboard-wrapper__form'>
         <InputField
           placeholder='Search for symbols or companies'
-          inputValue={input}
+          value={input}
           onChange={(e) => setInput(e.target.value)}
         />
         <Button onClick={handleSubmit} />
