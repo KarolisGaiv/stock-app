@@ -8,6 +8,7 @@ import StockCard from '../components/StockCard/StockCard';
 function Dashboard() {
   const [input, setInput] = useState('');
   const [result, setResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSubmit = async (e) => {
     const url = `${iex.base_url}/stock/${input}/quote?token=${iex.api_token}`;
@@ -17,10 +18,16 @@ function Dashboard() {
       alert('Please enter stock ticker');
     }
 
-    const res = await fetch(url);
-    const data = await res.json();
-    setResult(data);
-    setInput('');
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      setResult(data);
+      console.log(data);
+      setInput('');
+      setIsLoading(false);
+    } catch (err) {
+      alert('Unable to find stock price, please check ticker name');
+    }
   };
 
   return (
@@ -35,12 +42,15 @@ function Dashboard() {
         <Button onClick={handleSubmit} />
       </form>
       <div className='search-results-wrapper'>
-        {result.length !== 0 ? (
+        {isLoading ? null : (
           <StockCard
             companyName={result.companyName}
-            stockPrice={result.latestPrice}
+            stockPrice={(result.latestPrice).toFixed(2)}
+            symbol={result.symbol}
+            priceChangeCurrency={(result.change).toFixed(2)}
+            priceChangePercentage={(result.changePercent * 100).toFixed(2)}
           />
-        ) : null}
+        )}
       </div>
     </div>
   );

@@ -1,17 +1,36 @@
 .card {
-    border: 2px solid #6294ea;
-    border-radius: 5px;
-    padding: 15px;
-    width: 360px;
+  border: 2px solid #6294ea;
+  border-radius: 5px;
+  padding: 15px;
+  width: 360px;
 
-    &__title {
-        color: #215F75;
-        margin: 0;
-    }
+  &__title {
+    color: #215f75;
+    margin: 0;
+  }
 
-    &__price {
-        font-size: 30px;
-        font-weight: 700;
-        margin-top: 15px;
-    }
+  &__details {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  &__current-value {
+    font-size: 40px;
+    font-weight: 700;
+  }
+
+  &__price-change {
+      font-size: 30px;
+
+      &--negative {
+          color: red;
+      }
+
+      &--positive {
+          color: green;
+      }
+      
+  }
 }
