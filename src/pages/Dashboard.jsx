@@ -21,7 +21,7 @@ function Dashboard() {
     try {
       const res = await fetch(url);
       const data = await res.json();
-      setResult(result => [...result, data]);
+      setResult((result) => [...result, data]);
       console.log(data);
       setInput('');
       setIsLoading(false);
@@ -45,10 +45,9 @@ function Dashboard() {
         {isLoading
           ? null
           : result.map((stock) => (
-              <ul className="search-results__list">
+              <ul className='search-results__list' key={stock.symbol}>
                 <li>
                   <StockCard
-                    key={stock.symbol}
                     companyName={stock.companyName}
                     stockPrice={stock.latestPrice.toFixed(2)}
                     symbol={stock.symbol}
