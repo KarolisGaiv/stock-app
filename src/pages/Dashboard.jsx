@@ -15,13 +15,13 @@ function Dashboard() {
     e.preventDefault();
 
     if (!input) {
-      alert('Please enter stock ticker');
+      return alert('Please enter stock ticker');
     }
 
     try {
       const res = await fetch(url);
       const data = await res.json();
-      setResult(data);
+      setResult(result => [...result, data]);
       console.log(data);
       setInput('');
       setIsLoading(false);
@@ -41,16 +41,25 @@ function Dashboard() {
         />
         <Button onClick={handleSubmit} />
       </form>
-      <div className='search-results-wrapper'>
-        {isLoading ? null : (
-          <StockCard
-            companyName={result.companyName}
-            stockPrice={(result.latestPrice).toFixed(2)}
-            symbol={result.symbol}
-            priceChangeCurrency={(result.change).toFixed(2)}
-            priceChangePercentage={(result.changePercent * 100).toFixed(2)}
-          />
-        )}
+      <div className='search-results__wrapper'>
+        {isLoading
+          ? null
+          : result.map((stock) => (
+              <ul className="search-results__list">
+                <li>
+                  <StockCard
+                    key={stock.symbol}
+                    companyName={stock.companyName}
+                    stockPrice={stock.latestPrice.toFixed(2)}
+                    symbol={stock.symbol}
+                    priceChangeCurrency={stock.change.toFixed(2)}
+                    priceChangePercentage={(stock.changePercent * 100).toFixed(
+                      2
+                    )}
+                  />
+                </li>
+              </ul>
+            ))}
       </div>
     </div>
   );
