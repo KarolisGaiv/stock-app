@@ -1,6 +1,6 @@
 import React from 'react';
 import './stockCard.scss';
-import classNames from 'classnames';
+import { Card } from 'semantic-ui-react';
 
 function StockCard({
   companyName,
@@ -9,22 +9,22 @@ function StockCard({
   priceChangeCurrency,
   priceChangePercentage,
 }) {
-  const priceChangeClasses = classNames('card__price-change', {
-    'card__price-change--negative': priceChangePercentage < 0,
-    'card__price-change--positive': priceChangePercentage > 0,
-  });
 
   return (
-    <div className='card'>
-      <h3 className='card__title'>
-        {companyName} ({symbol})
-      </h3>
-      <div className='card__details'>
-        <div className='card__current-value'>${stockPrice}</div>
-        <div className={priceChangeClasses}>
-          {priceChangeCurrency} ({priceChangePercentage} %)
-        </div>
-      </div>
+    <div className='stock-card'>
+      <Card color={priceChangeCurrency > 0 ? 'green' : 'red'}>
+        <Card.Content>
+          <Card.Header>
+            {companyName} ({symbol})
+          </Card.Header>
+          <Card.Meta className="change">
+            {priceChangeCurrency} ({priceChangePercentage} %)
+          </Card.Meta>
+          <Card.Description className='stock-price'>
+            {stockPrice}
+          </Card.Description>
+        </Card.Content>
+      </Card>
     </div>
   );
 }

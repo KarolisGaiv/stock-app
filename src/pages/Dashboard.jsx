@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { iex } from '../config/iex';
 import './dashboard.scss';
-import InputField from '../components/InputField/InputField';
-import Button from '../components/Button/Button';
 import StockCard from '../components/StockCard/StockCard';
+import { Button, Input } from 'semantic-ui-react';
 
 function Dashboard() {
   const [input, setInput] = useState('');
@@ -34,27 +33,26 @@ function Dashboard() {
     <div className='dashboard-wrapper'>
       <h1 className='dashboard-wrapper__title'>Stock App</h1>
       <form className='dashboard-wrapper__form'>
-        <InputField
+        <Input
           placeholder='Search for symbols or companies'
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          className='dashboard-wrapper__search-field'
         />
-        <Button onClick={handleSubmit} />
+        <Button icon='search' onClick={handleSubmit} color='teal' />
       </form>
       <div className='search-results__wrapper'>
         {isLoading
           ? null
           : result.map((stock) => (
-              <ul className='search-results__list' key={stock.symbol}>
+              <ul key={stock.companyName} className="search-results__list">
                 <li>
                   <StockCard
                     companyName={stock.companyName}
                     stockPrice={stock.latestPrice.toFixed(2)}
-                    symbol={stock.symbol}
                     priceChangeCurrency={stock.change.toFixed(2)}
-                    priceChangePercentage={(stock.changePercent * 100).toFixed(
-                      2
-                    )}
+                    priceChangePercentage={stock.changePercent.toFixed(2)}
+                    symbol={stock.symbol}
                   />
                 </li>
               </ul>
